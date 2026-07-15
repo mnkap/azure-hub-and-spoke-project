@@ -63,3 +63,28 @@ resource "azurerm_subnet_route_table_association" "management" {
   subnet_id      = azurerm_subnet.management.id
   route_table_id = azurerm_route_table.spoke.id
 }
+
+resource "azurerm_network_security_group" "spoke_nsg" {
+  name                = "spoke-workload-nsg"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  # Allow SSH from the Internet
+  security_rule {
+    name                       = "AllowSSH"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"  
+    destination_address_prefix = "*"
+  }
+}
+
+# 3. THIS IS THE MISSING PIECE: The Association Resource
+resource "azurerm_subnet_network_security_group_association" "workload_nsg_link" {
+  subnet_id                 = azurerm_subnet.workload.id
+  network_security_group_id = azurerm_network_security_group.spoke_nsg.id
+}

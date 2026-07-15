@@ -19,6 +19,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   size                            = "Standard_DS1_v2"
   admin_username                  = var.admin_username
   admin_password                  = var.admin_password
+  disable_password_authentication = false 
 
   # 3. Attach the NIC to the VM
   network_interface_ids = [
