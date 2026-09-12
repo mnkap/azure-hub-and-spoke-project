@@ -36,8 +36,8 @@ module "hub" {
   hub_address_space   = ["10.0.0.0/16"]
 
   gateway_subnet_prefix  = ["10.0.0.0/24"]
-  bastion_subnet_prefix  = ["10.0.2.0/24"]
-  mgmt_subnet_prefix     = ["10.0.3.0/24"]
+  bastion_subnet_prefix  = ["10.0.1.0/24"]
+  mgmt_subnet_prefix     = ["10.0.2.0/24"]
 
   tags = var.tags
 }
