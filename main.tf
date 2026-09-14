@@ -57,11 +57,9 @@ module "spoke1" {
 
   hub_vnet_id          = module.hub.hub_vnet_id
   hub_vnet_name        = module.hub.hub_vnet_name
-  remote_spoke_address_space = ["10.2.0.0/16"]  # Hardcoded since we know it
 
   tags = var.tags
 
-  depends_on = [module.hub]
 }
 
 
